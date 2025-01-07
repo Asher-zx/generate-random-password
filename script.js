@@ -43,3 +43,45 @@ const passwordBtn2 = document.createElement('span')
 passwordBtn2.classList.add('password-btn-2')
 passwordBtn2.textContent = ""
 buttonContainer.appendChild(passwordBtn2)
+
+const characters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9","~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]",",","|",":",";","<",">",".","?",
+"/"];
+
+let passwordLength = 12
+function getRandomCharacter() {
+    let randomChar = Math.floor(Math.random() * characters.length);
+    return characters[randomChar];
+}
+
+function generateRandomPassword() {
+    let randomPassword = ""
+    for (let i = 0; i < passwordLength; i++) {
+        randomPassword += getRandomCharacter();
+    }
+    return randomPassword;
+}
+
+generateBtn.addEventListener('click', () => {
+    passwordBtn1.textContent = generateRandomPassword()
+    passwordBtn2.textContent = generateRandomPassword()
+});
+
+passwordBtn1.addEventListener('click', () => {
+    copyToClipboard(passwordBtn1.textContent);
+    
+    alert('copied: ' + passwordBtn1.textContent);
+});
+passwordBtn2.addEventListener('click', () => {
+    copyToClipboard(passwordBtn2.textContent);
+
+    alert('copied: ' + passwordBtn2.textContent);
+});
+
+function copyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+}
